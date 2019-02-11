@@ -1,3 +1,15 @@
+%{
+
+editor: Rafael Lazar
+data origin:  Bouma 1962 https://doi.org/10.1038/193690a0
+tool used: webplotdigitizer https://apps.automeris.io/wpd/
+date of last modification: 11.02.2019
+data specification:  Static pupil size related to log lumlnous flux F (lumen)
+incldent on the human eye for different wave-lengths. Vlsual
+angle 26° centrcd on fovea. Subject HB.
+%}
+
+
 %Data import Bouma 1962
 nm425 = dlmread('425nm Bouma 1962.csv'); %loading data for human melatonin sensitivity5
 nm445 = dlmread('445nm Bouma 1962.csv'); %loading data for human melatonin sensitivity5
