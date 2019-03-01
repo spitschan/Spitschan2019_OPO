@@ -11,10 +11,10 @@ filter glasses
 
 
 %Data import Kantenfilter
-CPF550S = dlmread('CPF 550 S.csv'); %loading data for human melatonin sensitivity5
-F580 = dlmread('F580.csv'); %loading data for human melatonin sensitivity5
-HydroFlexRP = dlmread('HydroFlex RP.csv'); %loading data for human melatonin sensitivity5
-L660 = dlmread('L 660.csv'); %loading data for human melatonin sensitivity5
+CPF550S = dlmread('CPF 550 S.csv'); %loading data 
+F580 = dlmread('F580.csv'); %loading data 
+HydroFlexRP = dlmread('HydroFlex RP.csv'); %loading data 
+L660 = dlmread('L 660.csv'); %loading data 
 
 
 figure %Open new figure
@@ -24,9 +24,9 @@ set(gca,'xlim',[300, 800], 'ylim',[0,100]);% set the x-axis & y-axis values
 xlabel('wavelength (nm)'); %Label for the x-axis
 ylabel('relative transmission (%)'); %Label for the y-axis
 hold on;
-plot(F580(:,1),F580(:,2),'-b'); %Plot 445nm data as a scatter plot
-plot(HydroFlexRP(:,1),HydroFlexRP(:,2),':k'); %Plot 515nm data as a scatter plot
-plot(L660(:,1),L660(:,2),'-.m'); %Plot 535nm data as a scatter plot
+plot(F580(:,1),F580(:,2),'-b'); %Plot F580 data 
+plot(HydroFlexRP(:,1),HydroFlexRP(:,2),':k'); %Plot HydroflexRP data 
+plot(L660(:,1),L660(:,2),'-.m'); %Plot L660 data 
 hold on
 legend({'CPF550S','F580','HydroFlexRP','L660'},'Location','northwest')
 
