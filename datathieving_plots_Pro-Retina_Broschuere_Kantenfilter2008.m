@@ -133,7 +133,29 @@ plot(MultilensTransitions450_unbelichtet(:,1),MultilensTransitions450_unbelichte
 hold on
 legend({'MultilensTransitions450 belichtet','MultilensTransitions450 unbelichtet',},'Location','northwest')
 hold off
-%% %% Multilens 511 Transitions - 550 Transitions belichtet und unbelichtet
+
+%% Multilens 511 - 550
+
+%Data import Kantenfilter 
+Multilens511 = dlmread('Multilens511.csv'); %loading data 
+Multilens527 = dlmread('Multilens527.csv'); %loading data
+Multilens550 = dlmread('Multilens550.csv'); %loading data
+
+figure %Open new figure
+plot(Multilens511(:,1),Multilens511(:,2),'--r'); %Plot  data
+title('transmission curves for medical cut-off filters: Multilens 511 - 550') %Add a title
+set(gca,'xlim',[350, 800], 'ylim',[0,100]);% set the x-axis & y-axis values
+xlabel('wavelength (nm)'); %Label for the x-axis
+ylabel('relative transmission (%)'); %Label for the y-axis
+hold on;
+plot(Multilens527(:,1),Multilens527(:,2),'-b'); %Plot  data 
+plot(Multilens550(:,1),Multilens550(:,2),':k'); %Plot data
+hold on
+legend({'Multilens 511 ','Multilens 527 ','Multilens 550'},'Location','northwest')
+hold off
+
+
+%% Multilens 511 Transitions - 550 Transitions belichtet und unbelichtet
 
 
 %Data import Kantenfilter 
