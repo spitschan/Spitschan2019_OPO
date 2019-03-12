@@ -79,15 +79,15 @@ end
 
 
  %plotten aller Filter luminance impact vs. melanopsin impact
-plot (alle_melanopsin_impact(filterTypes==1) ,alle_luminance_throughfilter(filterTypes==1) ,'or');
+plot (alle_melanopsin_impact(filter_Taxonomie1==1) ,alle_luminance_throughfilter(filter_Taxonomie1==1) ,'or');
 title('filter luminance and melanopsin impact') %Add a title
 axis('equal');
 set(gca,'xlim',[0,1],'XScale', 'log', 'ylim',[0,1], 'YScale', 'log');% set the x-axis values
 xlabel('relative impact of EEW through filter on melanopsin vs no filter'); %Label for the x-axis
 ylabel('luminance of EEW through filter in relation to no filter'); %Label for the y-axis
 hold on; 
-plot (alle_melanopsin_impact((filterTypes==2)) ,alle_luminance_throughfilter(filterTypes==2) ,'xk');
-plot (alle_melanopsin_impact((filterTypes==3)) ,alle_luminance_throughfilter(filterTypes==3) ,'sb');
-
-
-
+plot (alle_melanopsin_impact((filter_Taxonomie1==2)) ,alle_luminance_throughfilter(filter_Taxonomie1==2) ,'xk');
+plot (alle_melanopsin_impact((filter_Taxonomie1==3)) ,alle_luminance_throughfilter(filter_Taxonomie1==3) ,'+b');
+plot (alle_melanopsin_impact((filter_Taxonomie1==4)) ,alle_luminance_throughfilter(filter_Taxonomie1==4) ,'^m');
+plot (alle_melanopsin_impact((filter_Taxonomie1==5)) ,alle_luminance_throughfilter(filter_Taxonomie1==5) ,'dk');
+plot (alle_melanopsin_impact((filter_Taxonomie1==6)) ,alle_luminance_throughfilter(filter_Taxonomie1==6) ,'pg');
