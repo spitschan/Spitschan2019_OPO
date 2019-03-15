@@ -135,7 +135,7 @@ ProductName={'F580'; 'HydroFlexRP' ;'L660';'CPF550S';'F580';
     ' LLR Night Cover';' 47';' 50';' 60';' 68';
     ' 72';' 90';' 93';' 465';' 505';
     ' 533';' 553';' 570';'Laserschutzbrille 0000001012726 red';'Laserschutzbrille 0000001012731 orange';
-    'Laserschutzbrille 0000003013447 red-orange';'Laserschutzbrille 2054110000002 yellow';'Ultraspec 2000 SCT Orange';'N/A - filter albino patients';'N/A - filter aphakic patients';
+    'Laserschutzbrille 0000003013447 red-orange';'Laserschutzbrille 2054110000002 yellow';'SCT Orange (Ultraspec 2000)';'N/A - filter albino patients';'N/A - filter aphakic patients';
     'N/A - filter initial cataract patients';'Solar Shield Ultra';'N/A - orange lens';'SCT Orange';'N/A - orange lens';
     ' Amber Sleep Glasses';'Migraine Relief Lenses';'SLF450';'SLF511';'SLF527';
     'SLF550';'N/A - orange lens';'N/A - final modified red contact lens';'N/A - modified red contact lens';'red';
@@ -176,7 +176,7 @@ SourceOfTransmission= {'Schwerdtfeger & Gräf 1994'; 'Schwerdtfeger & Gräf 1994' 
 
 % to do: add filter_taxonomy2 to the table and save as csv
 
- table1= table(Manufacturer,ProductName,SourceOfTransmission, filter_taxonomy1);
+ table1= table(Manufacturer,ProductName,SourceOfTransmission, filter_taxonomy1_label(filter_taxonomy1));
  
  %writetable('Filter Table 1.csv');
  %type 'Filter Table 1.csv'
@@ -227,7 +227,7 @@ T_alleKurven(:, ii) = T;
 end
 
 save('T_alleKurven.mat','T_alleKurven', 'theFiles',...
-    'filter_taxonomy1', 'filter_taxonomy2', 'filter_taxonomy1_label','filter_taxonomy2_label' );
+    'filter_taxonomy1', 'filter_taxonomy2', 'filter_taxonomy1_label','filter_taxonomy2_label', 'table1' );
 
 
 %plotten aller Kurven

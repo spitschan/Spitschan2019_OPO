@@ -73,21 +73,21 @@ for i = 1:NKurven
   %compute the relative luminace through current Filter compared to no Filter
   luminance_impact= luminance_Filter_i ./ luminance_keinFilter;
   
-  alle_luminance_throughfilter(i,:)=luminance_impact;
+  alle_luminance_impact(i,:)=luminance_impact;
     
 end
 
 
  %plotten aller Filter luminance impact vs. melanopsin impact
-plot (alle_melanopsin_impact(filter_taxonomy1==1) ,alle_luminance_throughfilter(filter_taxonomy1==1) ,'or');
+plot (alle_melanopsin_impact(filter_taxonomy1==1) ,alle_luminance_impact(filter_taxonomy1==1) ,'or');
 title('filter luminance and melanopsin impact') %Add a title
 axis('equal');
 set(gca,'xlim',[0,1],'XScale', 'log', 'ylim',[0,1], 'YScale', 'log');% set the x-axis values
 xlabel('relative impact of EEW through filter on melanopsin vs no filter'); %Label for the x-axis
 ylabel('luminance of EEW through filter in relation to no filter'); %Label for the y-axis
 hold on; 
-plot (alle_melanopsin_impact((filter_taxonomy1==2)) ,alle_luminance_throughfilter(filter_taxonomy1==2) ,'xk');
-plot (alle_melanopsin_impact((filter_taxonomy1==3)) ,alle_luminance_throughfilter(filter_taxonomy1==3) ,'+b');
-plot (alle_melanopsin_impact((filter_taxonomy1==4)) ,alle_luminance_throughfilter(filter_taxonomy1==4) ,'^m');
-plot (alle_melanopsin_impact((filter_taxonomy1==5)) ,alle_luminance_throughfilter(filter_taxonomy1==5) ,'dk');
-plot (alle_melanopsin_impact((filter_taxonomy1==6)) ,alle_luminance_throughfilter(filter_taxonomy1==6) ,'pg');
+plot (alle_melanopsin_impact((filter_taxonomy1==2)) ,alle_luminance_impact(filter_taxonomy1==2) ,'xk');
+plot (alle_melanopsin_impact((filter_taxonomy1==3)) ,alle_luminance_impact(filter_taxonomy1==3) ,'+b');
+plot (alle_melanopsin_impact((filter_taxonomy1==4)) ,alle_luminance_impact(filter_taxonomy1==4) ,'^m');
+plot (alle_melanopsin_impact((filter_taxonomy1==5)) ,alle_luminance_impact(filter_taxonomy1==5) ,'dk');
+plot (alle_melanopsin_impact((filter_taxonomy1==6)) ,alle_luminance_impact(filter_taxonomy1==6) ,'pg');
