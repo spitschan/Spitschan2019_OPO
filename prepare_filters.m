@@ -47,7 +47,7 @@ theFiles = {'Schwerdtfeger1994_ZeissClarletF580.csv'; 'Schwerdtfeger1994_WoehlkH
 %numerical coding of the filter taxonomy based on commerce
 %corredsponding labels found inthe filter_taxonomy1_label cell array
 
-filter_taxonomy1= ...
+type_bbFilters= ...
     [1;1;1;1;1;
     1;1;1;1;1;
     3;4;6;1;1;
@@ -74,14 +74,14 @@ filter_taxonomy1= ...
     6;1;1;1;1;
     1;6;1;1;6;
     4;1;2];
-    
-%numerical coding of the filter taxonomy based on filter traits 
+
+%numerical coding of the filter taxonomy based on filter traits
 % corredsponding labels found in the filter_taxonomy2_label cell array
 
 filter_taxonomy2=[];
 
 
-filter_taxonomy1_label={'medical lenses'; 'safety lenses'; 'recreational lenses - sports';'recreational lenses - driving';'recreational lenses - VDM use'; 'recreational lenses - other'};
+type_label={'medical lenses'; 'safety lenses'; 'recreational lenses - sports';'recreational lenses - driving';'recreational lenses - VDM use'; 'recreational lenses - other'};
 filter_taxonomy2_label={'longpass filter', 'notch filter', 'neutral density filter'};
 
 %Manufacturers of the filter
@@ -176,12 +176,14 @@ SourceOfTransmission= {'Schwerdtfeger & Gräf 1994'; 'Schwerdtfeger & Gräf 1994' 
 
 % to do: add filter_taxonomy2 to the table and save as csv
 
- table1= table(Manufacturer,ProductName,SourceOfTransmission, filter_taxonomy1_label(filter_taxonomy1));
- 
- %writetable('Filter Table 1.csv');
- %type 'Filter Table 1.csv'
- 
+%table1= table(Manufacturer,ProductName,SourceOfTransmission, filter_taxonomy1_label(filter_taxonomy1));
 
+%writetable('Filter Table 1.csv');
+%type 'Filter Table 1.csv'
+
+%%%% 
+%% NOTES
+%% For Esaki (2017), removed wls >700
 
 
 
@@ -194,58 +196,40 @@ for ii = 1:NFiles
     rawdat_ii = dlmread(theFiles{ii});
     
     % create vector of rawdata that is unique
-    %if rawdata has not same length as unique array (duplicate X values)  
-    % --> for each group of equal x values of rawdat_ii ("subs") 
+    %if rawdata has not same length as unique array (duplicate X values)
+    % --> for each group of equal x values of rawdat_ii ("subs")
     % y values are avareged and stored in the location in
     % "means_duplicatedata" corresponding to x of the averaged values
     % rawdat_ii matrix is substituted with pruned data
     
     x_unique= unique(rawdat_ii(:,1));
- 
+    
     repeatedValuesPresentYesNo = ~(length(rawdat_ii(:,1)) == length(x_unique));
     if repeatedValuesPresentYesNo==1
-         means_duplicatedata = accumarray( rawdat_ii(:,1), rawdat_ii(:,2),[], @mean );
-         rawdat_ii = [x_unique, means_duplicatedata(x_unique)];
-               
+        means_duplicatedata = accumarray( rawdat_ii(:,1), rawdat_ii(:,2),[], @mean );
+        rawdat_ii = [x_unique, means_duplicatedata(x_unique)];
+        
     end
-
-%Transmissionsdaten in Prozent für das jeweilige Spektrum in nm
-%interpolieren --> geschätzte Y Werte an den Stellen xq mit spline Methode,
-%extrapolieren --> alle missing values außerhalb des x ranges = 0 setzen
-
-T= interp1(rawdat_ii(:,1),rawdat_ii(:,2),nm,'spline',NaN);
-
-%change unit from percent to decimal
-T= (T ./ 100)';
-
-%T_alleKurven --> Matrix mit allen Filtern: 401*N 
-%label der Filter -->  T_alleKurven Spalte 1 = theFiles{1} = ZeissClarletF580.csv
-%Spalte 2 --> theFiles{2} = WoehlkHydroFlexRP.csv...
-
-T_alleKurven(:, ii) = T;
- 
+    
+    %Transmissionsdaten in Prozent für das jeweilige Spektrum in nm
+    %interpolieren --> geschätzte Y Werte an den Stellen xq mit spline Methode,
+    %extrapolieren --> alle missing values außerhalb des x ranges = 0 setzen
+    
+    T= interp1(rawdat_ii(:,1),rawdat_ii(:,2),nm,'pchip',NaN);
+    
+    %change unit from percent to decimal
+    T= (T ./ 100)';
+    
+    %trans_alleKurven --> Matrix mit allen Filtern: 401*N
+    %label der Filter -->  trans_alleKurven Spalte 1 = theFiles{1} = ZeissClarletF580.csv
+    %Spalte 2 --> theFiles{2} = WoehlkHydroFlexRP.csv...
+    
+    trans_bbFilters(:, ii) = T;
+    
 end
 
-save('T_alleKurven.mat','T_alleKurven', 'theFiles',...
-    'filter_taxonomy1', 'filter_taxonomy2', 'filter_taxonomy1_label','filter_taxonomy2_label', 'table1' );
+wls_bbFilters = nm';
+src_bbFilters = theFiles;
 
-
-%plotten aller Kurven
-plot (nm ,T_alleKurven ,'.k');
-title('filter transmission curves') %Add a title
-set(gca,'xlim',[380, 780], 'ylim',[0,1]);% set the x-axis & y-axis values
-xlabel('wavelength (nm)'); %Label for the x-axis
-ylabel('relative transmission'); %Label for the y-axis
-hold on;
-
-
-%Add Melanopsin sensitivity function & luminance function to plot
-CIES026=GetCIES026;
-melanopsinfun=CIES026(5,:);
-luminancefile=dlmread('lin2012xyz10e_1_7sf.csv');
-% prune & pad luminance data so it fits the nm dimensions 380:1:780
-lumifun=[zeros(1,10),(luminancefile(1:391,3)')];
-plot (nm ,melanopsinfun,'-r');
-hold on
-plot (nm, lumifun, '-b')
-
+save('trans_bbFilters.mat','trans_bbFilters', 'wls_bbFilters', 'src_bbFilters',...
+    'type_bbFilters', 'type_label');
