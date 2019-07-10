@@ -1,2 +1,1 @@
-# melanopsinSpectralSensitivity
-Different sources for melanopsin spectral sensitivity
+# Spitschan2019_OPO
