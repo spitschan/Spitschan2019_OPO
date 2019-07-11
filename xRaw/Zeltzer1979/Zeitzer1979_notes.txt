@@ -1,0 +1,3 @@
+Zeitzer1979_X-Chrom_contact_lenses_final_Figure3
+
+omitted transmission data around x= 500nm because of distortion of drawing leading to negative transmission values
