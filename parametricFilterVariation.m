@@ -69,8 +69,9 @@ for filtIdx = 1:3
     T_xyz = 683*[tmp(find(tmp(:, 1) == 380):find(tmp(:, 1) == 780), 2:4)];
     T_xyz = T_xyz';
     
-    % Make EEW
-    spd = ones(size(wls));
+    % Make D65
+    tmp = load('spd_D65');
+    spd = SplineSpd(tmp.S_D65, tmp.spd_D65, wls);
     
     % Calculate the ratio
     XYZ = (T_xyz*(spd .* trans_simFilters));

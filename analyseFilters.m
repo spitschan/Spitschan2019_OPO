@@ -44,8 +44,8 @@ tmp = csvread('ciexyz64_1.csv');
 T_xyz = 683*[tmp(find(tmp(:, 1) == 380):find(tmp(:, 1) == 780), 2:4)];
 T_xyz = T_xyz';
 
-% Make EEW
-spd = ones(size(wls_bbFilters));
+% Make D65
+spd = SplineSpd(tmp.S_D65, tmp.spd_D65, wls);
 
 % Calculate the ratio
 XYZ = (T_xyz*(spd .* trans_bbFilters));
@@ -116,9 +116,9 @@ for ii = 1:NFilters
     set(gca, 'XTick', [-4:0], 'XTickLabel', 100*10.^[-4:0]);
     set(gca, 'YTick', [-4:0], 'YTickLabel', 100*10.^[-4:0])
     if ii == 1
-        ylabel('Melanopsin factor [%]');
+        ylabel('Melanopsin transmittance [%]');
     end
-    xlabel('Luminance factor [%]');
+    xlabel('Luminous transmittance [%]');
     
     % Plot chromaticity diagram
     subplot(4, NFilters, 6+ii);
@@ -161,7 +161,7 @@ for ii = 1:NFilters
     % Save out the data in a table
     fid = fopen('Table1.csv', 'a');
     for im = 1:length(idx)
-        fprintf(fid, '%s,%s,%s,%.4f,%.4f,%.4f,%.4f,%g\n', Manufacturer{idx(im)}, ProductName{idx(im)}, Source{idx(im)}, M(im, 1), M(im, 2), M(im, 3), M(im, 4), type_bbFilters0(idx(im)));
+        fprintf(fid, '%s,%s,%s,%.1f,%.1f,%.2f,%.1f,%g\n', Manufacturer{idx(im)}, ProductName{idx(im)}, Source{idx(im)}, M(im, 1), M(im, 2), M(im, 3), M(im, 4), type_bbFilters0(idx(im)));
     end
     fclose(fid);
     
@@ -170,4 +170,4 @@ end
 
 set(gcf, 'PaperPosition', [0 0 23 23]);
 set(gcf, 'PaperSize', [23 23]);
-saveas(gcf, 'xProducts/Fig3.pdf', 'pdf');
+saveas(gcf, 'xProducts/Fig4.pdf', 'pdf');
