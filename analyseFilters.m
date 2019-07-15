@@ -165,6 +165,7 @@ for ii = 1:NFilters
     end
     fclose(fid);
     
+    Mall{ii} = M;
 end
 
 set(gcf, 'PaperPosition', [0 0 23 23]);
